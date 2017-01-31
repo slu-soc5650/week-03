@@ -1,4 +1,4 @@
-Copyright (c) 2015-2016 Christopher G. Prener
+Copyright (c) 2015-2017 Christopher G. Prener
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
