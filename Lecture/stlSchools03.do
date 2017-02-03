@@ -133,13 +133,16 @@ replace zip = "63115" if zip == "63115-1238"
 replace zip = "63139" if zip == "63139-1906"
 
 /***
-
+These `replace` statements make the other changes needed for these data so 
+that we have uniform values in the variable `zip`.
 ***/
 
 tabulate zip, missing
 
 /***
-
+We can see the effect of the changes that we made when we re-tabulate
+the variable `zip`. There are now no zip codes with the additional 
+information about postal carrier routes.
 ***/
 
 duplicates report
