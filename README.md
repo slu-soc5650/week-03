@@ -1,15 +1,13 @@
 lecture-03 <img src="https://slu-soc5650.github.io/images/logo.png" align="right" />
 ===========================================================
-[![](https://img.shields.io/badge/semester-spring%202017-orange.svg)](https://github.com/slu-soc5650/lecture-03)
-[![](https://img.shields.io/badge/release-updated-brightgreen.svg)](https://github.com/slu-soc5650/lecture-03)
+[![](https://img.shields.io/badge/semester-spring%202018-orange.svg)](https://github.com/slu-soc5650/lecture-03)
+[![](https://img.shields.io/badge/release-lp%20only-red.svg)](https://github.com/slu-soc5650/lecture-03)
 [![](https://img.shields.io/github/release/slu-soc5650/lecture-03.svg?label=version)](https://github.com/slu-soc5650/lecture-03/releases)
 [![](https://img.shields.io/github/last-commit/slu-soc5650/lecture-03.svg)](https://github.com/slu-soc5650/lecture-03/commits/master)
 [![](https://img.shields.io/github/repo-size/slu-soc5650/lecture-03.svg)](https://github.com/slu-soc5650/lecture-03)
 
 This repository contains files for:
--   `Lab/` - lab instructions
--   `Slides/` - lecture slides
--   `Stata/` - documentation for week's Stata commands
+-   `LP-03/` - handout and replication for lecture prep 03
 -   `.gitignore`
 -   `LICENSE.md`
 -   `README.md`
