@@ -1,3 +1,7 @@
+# lecture-03 v18.4.0
+
+* Add lecture slides and handouts for functions, lab-02, and data wrangling workflow
+
 # lecture-03 v18.1.0
 
 * Add `NEWS.md`
