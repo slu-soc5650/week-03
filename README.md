@@ -1,15 +1,22 @@
 lecture-03 <img src="https://slu-soc5650.github.io/images/logo.png" align="right" />
 ===========================================================
 [![](https://img.shields.io/badge/semester-spring%202018-orange.svg)](https://github.com/slu-soc5650/lecture-03)
-[![](https://img.shields.io/badge/release-lp%20only-red.svg)](https://github.com/slu-soc5650/lecture-03)
+[![](https://img.shields.io/badge/release-updated-brightgreen.svg)](https://github.com/slu-soc5650/lecture-03)
 [![](https://img.shields.io/github/release/slu-soc5650/lecture-03.svg?label=version)](https://github.com/slu-soc5650/lecture-03/releases)
 [![](https://img.shields.io/github/last-commit/slu-soc5650/lecture-03.svg)](https://github.com/slu-soc5650/lecture-03/commits/master)
 [![](https://img.shields.io/github/repo-size/slu-soc5650/lecture-03.svg)](https://github.com/slu-soc5650/lecture-03)
 
 This repository contains files for:
+-   `Functions/` - functions sheet for lecture 03
 -   `LP-03/` - handout and replication for lecture prep 03
+-   `Lab-02/` - lab associated with lecture 03
+-   `Slides/` - lecture slides
+-   `Workflows/` - data wrangling workflow
 -   `.gitignore`
--   `LICENSE.md`
+-   `LICENSE`
+-   `LICENSE_TEXT.md`
+-   `NEWS.md`
+-   `NEWS_SITE.md`
 -   `README.md`
 
 ### License Information
