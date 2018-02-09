@@ -1,0 +1,102 @@
+---
+title: "Lab 02 Notebook"
+author: "Christopher Prener, Ph.D."
+date: '(`r format(Sys.time(), "%B %d, %Y")`)'
+output: 
+  github_document: default
+  html_notebook: default 
+---
+
+## Introduction
+This is the replication notebook for Lab-0 from the course SOC 4650/5650: Introduction to GISc.
+
+## Project Set Up
+
+```{r setup}
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+## Load Dependencies
+The following code loads the package dependencies for our analysis:
+
+```{r package-load}
+# tidyverse
+library(dplyr) # data wrangling
+library(readr) # data import
+
+# other packages
+library(janitor)
+library(naniar)
+```
+
+## Load Data
+The following code loads the data package and assigns our data to a data frame in our global environment:
+
+```{r data-load}
+riversRaw <- read_csv("data/MO_HYDRO_ImpairedRiversStreams.csv")
+riversTibble <- as_tibble(riversRaw)
+```
+
+## Part 1
+### Question 7
+The following pipeline renames the variables all to snake case and then makes some specific changes to `eventdat` and `county_u_d` to make them easier to work with:
+
+```{r clean-names}
+riversTibble %>%
+  clean_names(case = "snake") %>%
+  rename(date = eventdat) %>%
+  rename(county = county_u_d) -> riversTibble
+```
+
+We now have a tibble with uniformly named variables.
+
+### Question 8
+The following function from the `naniar` package gives us a table of the number of missing observations per variable:
+
+```{r missing-vars}
+miss_var_summary(riversTibble)
+```
+
+The variables `rchsmdate`, `rch_res`, and `feat_url` are all missing for every observation in the data set. There are also three other variables - `perm_id`, `date`, and `ou` - that has some missing data. 
+
+### Question 9
+The `get_dupes()` function, without specifying any specific variables, will report each identical observation in the data set:
+
+```{r duplicate-obs}
+get_dupes(riversTibble)
+```
+
+There are a total of 36 rows. We can look at the `dupe_count` variable by scrolling all the way to the right in the interactive table in our notebook. If you scan through that list of values, you'll see there 2's for each row. There are 36 rows total. Dividing the total number of rows by 2, since each row as one duplicate, gives us 18 unique observations in these 36 rows.
+
+### Question 10
+This time, we'll specify the specific variable we want to look for duplicates in. We're interested in the `perm_id` variable since it appears to be an identification number variable.
+
+```{r}
+get_dupes(riversTibble, perm_id)
+```
+
+There are 2,349 instances of duplicate identification numbers. This variable does not uniquely identify observations, and therefore is not a good identification variable. **After experimenting with this function and knitr, there is no need to remove it from your notebook. It creates clear, concise output.**
+
+### Question 11
+The following pipeline removes observations that are not in St. Louis, and subsets the variables so that we have a more limited tibble to work with.
+
+```{r}
+riversTibble %>%
+  filter(county == "St. Louis") %>%
+  select(yr, wbid, water_body, pollutant, source) -> stlTibble
+```
+
+Looking in our global environment, we now have only 179 observations across these 5 variables.
+
+### Question 12
+Finally, we'll make some specific changes to the `water_body` variable and create a new binary variable that is `TRUE` when the pollutant is E. coli:
+
+```{r}
+stlTibble %>%
+  mutate(water_body = ifelse(water_body == "Gravois Creek tributary", "Gravois Cr. tributary", water_body)) %>%
+  mutate(water_body = ifelse(water_body == "Twomile Creek", "Twomile Cr.", water_body)) %>%
+  mutate(water_body = ifelse(water_body == "Watkins Creek tributary", "Watkins Cr. tributary", water_body)) %>%
+  mutate(ecoli = ifelse(pollutant == "Escherichia coli (W)", TRUE, FALSE)) -> stlTibble
+```
+
+We now have a binary measure for assessing the incidence of E. Coli pollution in St. Louis as well as a standardized set of values for the body of water variable.
