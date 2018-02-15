@@ -71,7 +71,7 @@ There are a total of 36 rows. We can look at the `dupe_count` variable by scroll
 ### Question 10
 This time, we'll specify the specific variable we want to look for duplicates in. We're interested in the `perm_id` variable since it appears to be an identification number variable.
 
-```{r}
+```{r duplicate-ids}
 get_dupes(riversTibble, perm_id)
 ```
 
@@ -80,7 +80,7 @@ There are 2,349 instances of duplicate identification numbers. This variable doe
 ### Question 11
 The following pipeline removes observations that are not in St. Louis, and subsets the variables so that we have a more limited tibble to work with.
 
-```{r}
+```{r subset}
 riversTibble %>%
   filter(county == "St. Louis") %>%
   select(yr, wbid, water_body, pollutant, source) -> stlTibble
@@ -91,7 +91,7 @@ Looking in our global environment, we now have only 179 observations across thes
 ### Question 12
 Finally, we'll make some specific changes to the `water_body` variable and create a new binary variable that is `TRUE` when the pollutant is E. coli:
 
-```{r}
+```{r clean-water-bodies}
 stlTibble %>%
   mutate(water_body = ifelse(water_body == "Gravois Creek tributary", "Gravois Cr. tributary", water_body)) %>%
   mutate(water_body = ifelse(water_body == "Twomile Creek", "Twomile Cr.", water_body)) %>%

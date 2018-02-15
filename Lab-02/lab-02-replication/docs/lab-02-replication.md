@@ -1,7 +1,7 @@
 Lab 02 Notebook
 ================
 Christopher Prener, Ph.D.
-(February 08, 2018)
+(February 15, 2018)
 
 Introduction
 ------------
@@ -93,6 +93,12 @@ riversTibble %>%
   rename(county = county_u_d) -> riversTibble
 ```
 
+    ## Warning: argument preprocess is renamed to sep_in and will be removed in
+    ## later versions
+
+    ## Warning: argument replace_special_characters is renamed to transliterations
+    ## and will be removed in later versions
+
 We now have a tibble with uniformly named variables.
 
 ### Question 8
@@ -103,19 +109,19 @@ The following function from the `naniar` package gives us a table of the number 
 miss_var_summary(riversTibble)
 ```
 
-    ## # A tibble: 31 x 3
-    ##      variable n_missing     percent
-    ##         <chr>     <int>       <dbl>
-    ##  1  rchsmdate      6029 100.0000000
-    ##  2    rch_res      6029 100.0000000
-    ##  3   feat_url      6029 100.0000000
-    ##  4    perm_id       256   4.2461436
-    ##  5       date       256   4.2461436
-    ##  6         ou        56   0.9288439
-    ##  7         yr         0   0.0000000
-    ##  8 businessid         0   0.0000000
-    ##  9       wbid         0   0.0000000
-    ## 10 water_body         0   0.0000000
+    ## # A tibble: 31 x 4
+    ##    variable   n_miss pct_miss n_miss_cumsum
+    ##    <chr>       <int>    <dbl>         <int>
+    ##  1 yr              0        0             0
+    ##  2 businessid      0        0             0
+    ##  3 wbid            0        0             0
+    ##  4 water_body      0        0             0
+    ##  5 wb_cls          0        0             0
+    ##  6 mdnr_impsz      0        0             0
+    ##  7 size            0        0             0
+    ##  8 epa_apprsz      0        0             0
+    ##  9 unit            0        0             0
+    ## 10 pollutant       0        0             0
     ## # ... with 21 more rows
 
 The variables `rchsmdate`, `rch_res`, and `feat_url` are all missing for every observation in the data set. There are also three other variables - `perm_id`, `date`, and `ou` - that has some missing data.
@@ -132,17 +138,17 @@ get_dupes(riversTibble)
 
     ## # A tibble: 36 x 32
     ##       yr businessid  wbid water_body wb_cls mdnr_impsz  size epa_apprsz
-    ##    <int>      <int> <dbl>      <chr>  <chr>      <dbl> <dbl>      <dbl>
-    ##  1  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  2  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  3  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  4  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  5  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  6  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  7  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  8  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ##  9  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
-    ## 10  2010      51730  2579  Platte R.      P      142.4 142.4      142.4
+    ##    <int>      <int> <dbl> <chr>      <chr>       <dbl> <dbl>      <dbl>
+    ##  1  2010      51730  2579 Platte R.  P             142   142        142
+    ##  2  2010      51730  2579 Platte R.  P             142   142        142
+    ##  3  2010      51730  2579 Platte R.  P             142   142        142
+    ##  4  2010      51730  2579 Platte R.  P             142   142        142
+    ##  5  2010      51730  2579 Platte R.  P             142   142        142
+    ##  6  2010      51730  2579 Platte R.  P             142   142        142
+    ##  7  2010      51730  2579 Platte R.  P             142   142        142
+    ##  8  2010      51730  2579 Platte R.  P             142   142        142
+    ##  9  2010      51730  2579 Platte R.  P             142   142        142
+    ## 10  2010      51730  2579 Platte R.  P             142   142        142
     ## # ... with 26 more rows, and 24 more variables: unit <chr>,
     ## #   pollutant <chr>, source <chr>, iu <chr>, ou <chr>, up_x <dbl>,
     ## #   up_y <dbl>, dwn_x <dbl>, dwn_y <dbl>, county <chr>, wb_epa <chr>,
@@ -162,20 +168,19 @@ get_dupes(riversTibble, perm_id)
 ```
 
     ## # A tibble: 2,349 x 32
-    ##                                   perm_id dupe_count    yr businessid
-    ##                                     <chr>      <int> <int>      <int>
-    ##  1 {0034FF55-A18A-4963-9779-071E6E2086B3}          3  2006      51618
-    ##  2 {0034FF55-A18A-4963-9779-071E6E2086B3}          3  2008      51620
-    ##  3 {0034FF55-A18A-4963-9779-071E6E2086B3}          3  2006      51619
-    ##  4 {00B100BE-A84F-497C-BE54-35D5F3F60793}          2  2008      51018
-    ##  5 {00B100BE-A84F-497C-BE54-35D5F3F60793}          2  2008      51770
-    ##  6 {0145F682-2D9F-4FE8-9BB1-1A32BBE0B2DA}          2  2006      51487
-    ##  7 {0145F682-2D9F-4FE8-9BB1-1A32BBE0B2DA}          2  2006      51486
-    ##  8 {019A3253-616F-43E6-BDC9-EC98AF1A6207}          4  2006      51548
-    ##  9 {019A3253-616F-43E6-BDC9-EC98AF1A6207}          4  2010      55224
-    ## 10 {019A3253-616F-43E6-BDC9-EC98AF1A6207}          4  2014      62493
-    ## # ... with 2,339 more rows, and 28 more variables: wbid <dbl>,
-    ## #   water_body <chr>, wb_cls <chr>, mdnr_impsz <dbl>, size <dbl>,
+    ##    perm_id  dupe_count    yr businessid  wbid water_body wb_cls mdnr_impsz
+    ##    <chr>         <int> <int>      <int> <dbl> <chr>      <chr>       <dbl>
+    ##  1 {0034FF…          3  2006      51618  3188 N. Fk. Sp… C            1.10
+    ##  2 {0034FF…          3  2008      51620  3188 N. Fk. Sp… C           55.9 
+    ##  3 {0034FF…          3  2006      51619  3188 N. Fk. Sp… C           55.9 
+    ##  4 {00B100…          2  2008      51018  2755 W. Fk. Bl… P            2.10
+    ##  5 {00B100…          2  2008      51770  2755 W. Fk. Bl… P            2.10
+    ##  6 {0145F6…          2  2006      51487   623 L. Medici… P           19.8 
+    ##  7 {0145F6…          2  2006      51486   623 L. Medici… P           39.8 
+    ##  8 {019A32…          4  2006      51548  2080 Big R.     P           52.8 
+    ##  9 {019A32…          4  2010      55224  2080 Big R.     P           52.3 
+    ## 10 {019A32…          4  2014      62493  2080 Big R.     P           52.3 
+    ## # ... with 2,339 more rows, and 24 more variables: size <dbl>,
     ## #   epa_apprsz <dbl>, unit <chr>, pollutant <chr>, source <chr>, iu <chr>,
     ## #   ou <chr>, up_x <dbl>, up_y <dbl>, dwn_x <dbl>, dwn_y <dbl>,
     ## #   county <chr>, wb_epa <chr>, comment <chr>, date <date>,
